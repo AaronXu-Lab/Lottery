@@ -49,13 +49,13 @@ async function initialize(){
     try {const bytes=await placeholder.exportAsync({format:'PNG',constraint:{type:'SCALE',value:3}});avatar.fills=[{type:'IMAGE',imageHash:figma.createImage(bytes).hash,scaleMode:'FILL'}];}
     finally {placeholder.remove();}
     const labels=figma.createFrame();card.appendChild(labels);labels.name='TextAutoLayout';labels.layoutMode='VERTICAL';labels.resize(110,48);labels.x=5;labels.y=144;labels.itemSpacing=2;labels.counterAxisAlignItems='CENTER';labels.fills=[];labels.clipsContent=false;
-    const name=text(labels,'personName','姓名\nName',font,11);name.textAlignHorizontal='CENTER';
-    const desc=text(labels,'desc','人员描述\nDescription',font,9,'777777');desc.textAlignHorizontal='CENTER';
-    const nameProp=card.addComponentProperty('姓名 / Name','TEXT','姓名\nName');
-    const descProp=card.addComponentProperty('描述 / Description','TEXT','人员描述\nDescription');
+    const name=text(labels,'personName','姓名 | Name',font,11);name.textAlignHorizontal='CENTER';
+    const desc=text(labels,'desc','人员描述 | Description',font,9,'777777');desc.textAlignHorizontal='CENTER';
+    const nameProp=card.addComponentProperty('姓名 / Name','TEXT','姓名 | Name');
+    const descProp=card.addComponentProperty('描述 / Description','TEXT','人员描述 | Description');
     name.componentPropertyReferences={characters:nameProp};desc.componentPropertyReferences={characters:descProp};labels.primaryAxisSizingMode='AUTO';
     page.setPluginData('cardId',card.id);
-    NAMES.forEach((name,i)=>{const instance=card.createInstance();page.appendChild(instance);instance.name=name;instance.setProperties({[nameProp]:name,[descProp]:'示例人员 '+(i+1)+'\nParticipant '+(i+1)});instance.x=100+(i%9)*132;instance.y=650+Math.floor(i/9)*212;});
+    NAMES.forEach((name,i)=>{const instance=card.createInstance();page.appendChild(instance);instance.name=name;instance.setProperties({[nameProp]:name,[descProp]:'示例人员 '+(i+1)+' | Participant '+(i+1)});instance.x=100+(i%9)*132;instance.y=650+Math.floor(i/9)*212;});
     page.selection=[card];figma.viewport.scrollAndZoomIntoView(page.children);figma.notify(say('initialized'));send({type:'initialized'});
   } catch(error) {
     // Keep a partially created page available for inspection instead of hiding a failure.
