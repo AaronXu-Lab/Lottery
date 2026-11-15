@@ -1,0 +1,84 @@
+{
+  "source": "Published Lottery plugin 1173275512262750924 rendered UI and inline CSS/interaction script",
+  "verified": "2026-11-15",
+  "colors": {
+    "background": "#D82C2C",
+    "buttonAndResult": "#FFDD78",
+    "giftStroke": "#7E0000",
+    "codFill": "#150000",
+    "codOpacity": 0.1
+  },
+  "button": {
+    "width": 120,
+    "height": 120,
+    "top": 40,
+    "left": 90,
+    "hoverScale": 0.9,
+    "pressedScale": 0.5,
+    "transitionSeconds": 0.5,
+    "easing": "cubic-bezier(0, .6, .5, 1)"
+  },
+  "gift": {
+    "width": 50,
+    "height": 50,
+    "strokeWidth": 2.5
+  },
+  "cod": {
+    "width": 120,
+    "height": 120,
+    "transitionSeconds": 0.4,
+    "easing": "cubic-bezier(0, .6, .5, 1)",
+    "center": {
+      "x": 150,
+      "y": 112.5
+    },
+    "scatterOffsets": {
+      "c": {
+        "x": [
+          -180,
+          -30
+        ],
+        "y": [
+          -90,
+          22.5
+        ]
+      },
+      "o": {
+        "x": [
+          0,
+          150
+        ],
+        "y": [
+          -135,
+          -22.5
+        ]
+      },
+      "d": {
+        "x": [
+          0,
+          150
+        ],
+        "y": [
+          22.5,
+          135
+        ]
+      }
+    },
+    "rotationDegrees": [
+      0,
+      360
+    ]
+  },
+  "sequence": {
+    "load": "scatter",
+    "mouseenter": "gather with fresh random rotations; reset pressed flag",
+    "mouseleave": "scatter only if pressed flag is false",
+    "mousedown": "gather with fresh random rotations; set pressed flag",
+    "mouseup": "scatter; preserve pressed flag to avoid a second scatter on mouseleave"
+  },
+  "inactiveOriginalEffects": [
+    "canvas ripple",
+    "canvas particles",
+    "alternate color theme"
+  ]
+}

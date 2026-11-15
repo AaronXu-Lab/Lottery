@@ -1,0 +1,43 @@
+const fs=require('node:fs');
+const vm=require('node:vm');
+const assert=require('node:assert/strict');
+const html=fs.readFileSync(__dirname+'/ui.html','utf8');
+const elements=new Map();
+const messages=[];
+const element=id=>{
+  if(!elements.has(id))elements.set(id,{id,style:{},attributes:{},open:false,disabled:false,setAttribute(k,v){this.attributes[k]=v},focus(){},showModal(){this.open=true},close(){this.open=false}});
+  return elements.get(id);
+};
+let randomCalls=0;
+const math=Object.create(Math);math.random=()=>{randomCalls++;return .5;};
+const window={matchMedia:()=>({matches:false})};
+const document={getElementById:element,documentElement:{}};
+const context=vm.createContext({window,document,parent:{postMessage:m=>messages.push(m.pluginMessage)},requestAnimationFrame:fn=>fn(),Math:math});
+vm.runInContext(html.match(/<script>([\s\S]*)<\/script>/)[1],context);
+const draw=element('draw');
+const positions=()=>['c','o','d'].map(id=>element('cod-'+id).style.transform);
+const scattered=['translate(-105px,-33.75px) rotate(180deg)','translate(75px,-78.75px) rotate(180deg)','translate(75px,78.75px) rotate(180deg)'];
+assert.deepEqual(positions(),scattered,'Opening scatters the original SVGs into the original three ranges.');
+draw.onmouseenter();assert.ok(positions().every(x=>x==='translate(0px,0px) rotate(180deg)'),'Hover gathers all three SVGs at center.');
+draw.onmouseleave();assert.deepEqual(positions(),scattered,'Leaving before a click scatters again.');
+draw.onmousedown();assert.ok(positions().every(x=>x.startsWith('translate(0px,0px)')),'Press gathers.');
+draw.onmouseup();assert.deepEqual(positions(),scattered,'Release scatters.');
+const calls=randomCalls;draw.onmouseleave();assert.equal(randomCalls,calls,'Leaving immediately after release does not scatter twice.');
+draw.onmouseenter();draw.onmouseleave();assert.ok(randomCalls>calls,'A fresh hover resets the release guard.');
+draw.onclick({detail:1});assert.equal(messages.filter(m=>m.type==='draw').length,1);
+assert.equal(draw.disabled,false,'Busy state retains pointer events, hover, and active styling.');
+assert.equal(draw.attributes['aria-disabled'],'true');
+draw.onmousedown();draw.onmouseup();draw.onclick({detail:1});assert.equal(messages.filter(m=>m.type==='draw').length,1,'Busy draws are not submitted twice.');
+window.onmessage({data:{pluginMessage:{type:'ready'}}});
+draw.onclick({detail:0});assert.equal(messages.filter(m=>m.type==='draw').length,2,'Keyboard activation submits one draw.');
+assert.match(html,/#draw:hover\{transform:scale\(\.9\)\}/);
+assert.match(html,/#draw:active\{transform:scale\(\.5\)\}/);
+assert.match(html,/transition:all \.5s cubic-bezier\(0,\.6,\.5,1\)/);
+assert.match(html,/transition:all \.4s cubic-bezier\(0,\.6,\.5,1\)/);
+assert.match(html,/#draw svg\{width:50px;height:50px/);
+assert.match(html,/stroke-width:2\.5/);
+assert.ok(!html.includes('<span class="letter">'),'COD is SVG artwork, not font glyphs.');
+for(const name of ['gift','cod-c','cod-d','cod-o']){
+ const svg=fs.readFileSync(__dirname+'/assets/'+name+'.svg','utf8').trim();assert.ok(html.includes(svg),'Inline '+name+' matches the saved artwork.');
+}
+console.log('Passed: original hover/leave/press/release sequence, easing, geometry, SVGs, keyboard and draw concurrency.');
