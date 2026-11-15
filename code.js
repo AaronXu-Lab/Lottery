@@ -110,7 +110,7 @@ async function draw(count,reducedMotion){
     const previous=page.children.filter(n=>n.type==='FRAME'&&(n.getPluginData('lotteryResult')==='1'||/^第\s*\d+\s*次抽奖结果|^Round\s+\d+/.test(n.name)));
     const right=Math.max(...pool.map(n=>n.x+n.width))+100;
     const result=figma.createFrame();page.appendChild(result);result.name='第 '+round+' 次抽奖结果 / Round '+round;
-    result.layoutMode='HORIZONTAL';result.primaryAxisSizingMode='AUTO';result.counterAxisSizingMode='AUTO';result.paddingLeft=result.paddingRight=result.paddingTop=result.paddingBottom=20;result.itemSpacing=10;result.cornerRadius=4;result.fills=paint('EE9B40');result.setPluginData('lotteryResult','1');
+    result.layoutMode='HORIZONTAL';result.primaryAxisSizingMode='AUTO';result.counterAxisSizingMode='AUTO';result.paddingLeft=result.paddingRight=result.paddingTop=result.paddingBottom=20;result.itemSpacing=10;result.cornerRadius=4;result.fills=paint('FFE16B');result.setPluginData('lotteryResult','1');
     result.x=previous.length?previous[0].x:right;result.y=previous.length?Math.max(...previous.map(n=>n.y+n.height))+20:Math.min(...pool.map(n=>n.y));
     for(const winner of winners)result.appendChild(winner);
     page.setPluginData('round',String(round));page.selection=[result];figma.viewport.scrollAndZoomIntoView([result]);
