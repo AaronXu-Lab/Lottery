@@ -4,11 +4,13 @@
   "api": "1.0.0",
   "main": "code.js",
   "ui": "ui.html",
-  "editorType": ["figma"],
+  "editorType": [
+    "figma"
+  ],
   "documentAccess": "dynamic-page",
-  "networkAccess": { "allowedDomains": ["none"] },
-  "menu": [
-    { "name": "初始化抽奖页面", "command": "initialize" },
-    { "name": "打开抽奖面板", "command": "panel" }
-  ]
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  }
 }

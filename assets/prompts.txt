@@ -1,0 +1,7 @@
+Generated with the built-in ImageGen tool, 2026-11-15. Exported with macOS sips to Figma Community publishing sizes.
+
+Logo prompt:
+Create a square 1024x1024 premium app icon for a Figma Lottery random picker plugin. A single sculptural butter-gold gift box with an elegant ribbon, centered on saturated vermilion #D92327 full bleed square background. Refined satin-metal and soft clay 3D, crisp readable geometric silhouette at 128px, generous 20 percent safe margins. Warm gold #FFE16B, subtle shadows. No lettering, no confetti, no watermark, no outer rounded mask.
+
+Cover prompt:
+Create a refined landscape 16:9 Figma Community plugin cover, 1920x1080. Product title exactly 'Lottery' large bold beautiful sans serif on left, subtitle exactly 'A little suspense. A lucky pick.' Smaller below. Vermilion #D92327 background, quiet oversized darker red C O D shapes in the corners. Right side: sculptural butter-gold gift box with ribbon and a handful of floating cream person cards with simple gray avatars, one highlighted by a crisp red selection outline against a cream backing shape. Premium playful design-tool aesthetic, clean front-on graphic composition, delicate 3D depth and shadows, generous spacing, restrained gold #FFE16B. No extra text, no Figma logo, no device mockups, no watermark.
