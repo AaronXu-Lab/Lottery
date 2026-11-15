@@ -43,14 +43,14 @@ async function initialize(){
     const card=figma.createComponent();page.appendChild(card);card.name='personCardComponent';card.resize(120,200);card.x=100;card.y=370;
     card.fills=paint('FFFFFF');card.cornerRadius=10;card.strokes=paint('E5E5E5');card.strokeWeight=1;
     card.description='复制实例并直接放在页面上，编辑姓名、描述和头像。\nDuplicate instances onto the page; edit the name, description, and avatar.';
-    const avatar=figma.createRectangle();card.appendChild(avatar);avatar.name='Avatar';avatar.resize(108,132);avatar.x=6;avatar.y=6;avatar.cornerRadius=4;
-    const placeholder=figma.createNodeFromSvg('<svg xmlns="http://www.w3.org/2000/svg" width="108" height="132"><rect width="108" height="132" fill="#D9D9D9"/><g transform="translate(34 46)" fill="#BDBDBD"><circle cx="20" cy="12" r="8"/><path d="M4 37c0-17 32-17 32 0"/></g></svg>');
+    const avatar=figma.createRectangle();card.appendChild(avatar);avatar.name='Avatar';avatar.resize(108,144);avatar.x=6;avatar.y=6;avatar.cornerRadius=4;
+    const placeholder=figma.createNodeFromSvg('<svg xmlns="http://www.w3.org/2000/svg" width="108" height="144"><rect width="108" height="144" fill="#D9D9D9"/><g transform="translate(34 52)" fill="#BDBDBD"><circle cx="20" cy="12" r="8"/><path d="M4 37c0-17 32-17 32 0"/></g></svg>');
     card.appendChild(placeholder);
     try {const bytes=await placeholder.exportAsync({format:'PNG',constraint:{type:'SCALE',value:3}});avatar.fills=[{type:'IMAGE',imageHash:figma.createImage(bytes).hash,scaleMode:'FILL'}];}
     finally {placeholder.remove();}
-    const labels=figma.createFrame();card.appendChild(labels);labels.name='TextAutoLayout';labels.layoutMode='VERTICAL';labels.resize(110,48);labels.x=5;labels.y=144;labels.itemSpacing=2;labels.counterAxisAlignItems='CENTER';labels.fills=[];labels.clipsContent=false;
-    const name=text(labels,'personName','姓名 | Name',font,11);name.textAlignHorizontal='CENTER';
-    const desc=text(labels,'desc','人员描述 | Description',font,9,'777777');desc.textAlignHorizontal='CENTER';
+    const labels=figma.createFrame();card.appendChild(labels);labels.name='TextAutoLayout';labels.layoutMode='VERTICAL';labels.resize(110,35);labels.x=5;labels.y=158;labels.itemSpacing=3;labels.counterAxisAlignItems='CENTER';labels.fills=[];labels.clipsContent=false;
+    const name=text(labels,'personName','姓名 | Name',font,13);name.lineHeight={unit:'AUTO'};
+    const desc=text(labels,'desc','人员描述 | Description',font,10,'777777');desc.lineHeight={unit:'AUTO'};
     const nameProp=card.addComponentProperty('姓名 / Name','TEXT','姓名 | Name');
     const descProp=card.addComponentProperty('描述 / Description','TEXT','人员描述 | Description');
     name.componentPropertyReferences={characters:nameProp};desc.componentPropertyReferences={characters:descProp};labels.primaryAxisSizingMode='AUTO';
